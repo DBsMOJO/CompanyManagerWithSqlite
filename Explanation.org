@@ -49,3 +49,7 @@ Der Namespace =ConApp= repräsentiert die Konsolenanwendung. Hier befindet sich 
 * Diagramm
 
 [[file:Description/class-diagram/class-diagram.png]]
+
+* Rider
+** [[file:Description/RiderNuGet.org][NuGet installieren]]
+** [[file:Description/Entity-Framework-Core.org][Entity-Framework-Core einstellen]]
