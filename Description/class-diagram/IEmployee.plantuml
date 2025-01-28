@@ -25,6 +25,4 @@ package CompanyManager.Logic.DataContext {
 
 package CompanyManager.ConApp {
 }
-
-}
 @enduml
