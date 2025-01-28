@@ -1,0 +1,17 @@
+#+title: Setup Entity-Framework-Core
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+
+* Setup
+
+[[file:Setup_Entity-Framework-Core.png]]
+
+* Migration
+
+[[file:Add_Migration.png]]
+
+* Update Database
+
+[[file:Update_Database.png]]

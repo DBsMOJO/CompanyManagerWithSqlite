@@ -1,0 +1,6 @@
+#+title: Rider NuGet installieren
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+[[file:NuGet_installieren.png]]
