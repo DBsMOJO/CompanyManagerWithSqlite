@@ -1,0 +1,25 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+
+        interface IContext {
+        }
+}
+
+package CompanyManager.Logic.Entities {
+}
+
+package CompanyManager.Logic.DataContext {
+        class CompanyContext {
+        }
+
+        class Factory {
+                +method static IContext CreateContext()
+        }
+
+        Factory --> IContext : creates
+        Factory --> CompanyContext : instantiates
+}
+
+package CompanyManager.ConApp {
+}
+@enduml

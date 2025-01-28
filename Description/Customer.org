@@ -1,0 +1,87 @@
+#+title: Company Manager with SQLite - Customer
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Zweck der Klasse
+
+Die Klasse =Customer= repräsentiert eine konkrete Kundenentität im System. Sie enthält alle relevanten Eigenschaften und Methoden, um die Daten eines Kunden zu speichern und zu verwalten. Diese Klasse stellt sicher, dass die Informationen über Kunden wie =CompanyId=, =Name= und =Email= strukturiert und konsistent abgebildet werden.
+
+* Verwendung
+
+Die Klasse =Customer= wird in der gesamten Anwendung verwendet, um Kundeninformationen in der Datenbank zu speichern, abzurufen und zu manipulieren. Sie implementiert den Contract [[file:ICustomer.org][ICustomer]] und fügt zusätzliche Funktionen wie Navigationseigenschaften ([[file:Company.org][Company]]) hinzu, um die Beziehungen zwischen Kunden und Firmen abzubilden. Diese Klasse wird sowohl in der Geschäftslogik als auch in der Datenzugriffsebene genutzt, um sicherzustellen, dass Kunden korrekt verarbeitet und verwaltet werden können.
+
+* Diagramm
+
+[[file:class-diagram/Customer.png]]
+
+* Code
+
+#+begin_src csharp :noweb yes :tangle ../CompanyManager.Logic/Entities/Customer.cs
+using CompanyManager.Logic.Contracts;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CompanyManager.Logic.Entities
+{
+    /// <summary>
+    /// Represents a customer entity.
+    /// </summary>
+    [Table("Customers")]
+    [Index(nameof(Name), IsUnique = true)]
+    [Index(nameof(Email), IsUnique = true)]
+    public class Customer : EntityObject, ICustomer
+    {
+        #region properties
+        /// <summary>
+        /// Gets or sets the company ID.
+        /// </summary>
+        public int CompanyId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the customer.
+        /// </summary>
+        [MaxLength(256)]
+        public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the email of the customer.
+        /// </summary>
+        [MaxLength(128)]
+        public string Email { get; set; } = string.Empty;
+        #endregion properties
+
+        #region navigation properties
+        /// <summary>
+        /// Gets or sets the associated company.
+        /// </summary>
+        public Company? Company { get; set; }
+        #endregion navigation properties
+
+        #region methods
+        /// <summary>
+        /// Copies properties from another customer.
+        /// </summary>
+        /// <param name="customer">The customer to copy properties from.</param>
+        public virtual void CopyProperties(ICustomer customer)
+        {
+            base.CopyProperties(customer);
+
+            CompanyId = customer.CompanyId;
+            Name = customer.Name;
+            Email = customer.Email;
+        }
+
+        /// <summary>
+        /// Returns a string representation of the customer.
+        /// </summary>
+        /// <returns>A string representation of the customer.</returns>
+        public override string ToString()
+        {
+            return $"Customer: {Name}";
+        }
+        #endregion methods
+    }
+}
+#+end_src

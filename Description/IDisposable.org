@@ -1,0 +1,16 @@
+#+title: Company Manager with SQLite - IDisposable
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Zweck des Contracts
+
+Der Contract =IDisposable= ist ein vordefiniertes =Interface= im .NET-Framework, das Ressourcenbereinigung ermöglicht. Es stellt sicher, dass alle Klassen, die diesen Contract implementieren, die Methode =Dispose= bereitstellen. Diese Methode wird verwendet, um nicht verwaltete Ressourcen (z. B. Datenbankverbindungen oder Datei-Handles) ordnungsgemäß freizugeben.
+
+* Verwendung
+
+Der =IDisposable= Contract wird von Klassen wie dem Datenkontext ([[file:CompanyContext.org][CompanyContext]]) implementiert, die Zugriff auf externe Ressourcen wie Datenbanken haben. Er regelt, dass diese Klassen die Methode =Dispose= implementieren müssen, um Ressourcen nach der Nutzung explizit freizugeben. Dies ist besonders wichtig, um Speicherlecks zu vermeiden und die Stabilität der Anwendung zu gewährleisten. Der Contract wird häufig in Verbindung mit =using=-Blöcken verwendet, um die Lebensdauer von Objekten automatisch zu verwalten.
+
+* Diagramm
+
+[[file:class-diagram/IDisposable.png]]

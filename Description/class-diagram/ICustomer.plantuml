@@ -1,0 +1,27 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+        interface IIdentifiable {
+        }
+
+                interface ICustomer {
+                +field int CompanyId
+                +field string Name
+                +field string Email
+        }
+
+        ICustomer ..|> IIdentifiable
+}
+
+package CompanyManager.Logic.Entities {
+        class Customer {
+          }
+
+
+         Customer ..|> ICustomer
+}
+package CompanyManager.Logic.DataContext {
+}
+
+package CompanyManager.ConApp {
+}
+@enduml

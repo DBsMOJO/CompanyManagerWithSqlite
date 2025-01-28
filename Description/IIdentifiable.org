@@ -1,0 +1,33 @@
+#+title: Company Manager with SQLite - IIdentifiable
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Zweck des Contracts
+
+Der Contract =IIdentifiable= definiert eine standardisierte Schnittstelle für alle Entitäten, die eine eindeutige Identifikation benötigen. Er stellt sicher, dass jede Entität, die diesen Contract implementiert, eine Id-Eigenschaft bereitstellt, die als eindeutiger Schlüssel dient. Dies erleichtert die Verwaltung, den Zugriff und die Identifikation von Objekten im System.
+
+* Verwendung
+
+Der =IIdentifiable= Contract wird in allen Entitäten des Projekts implementiert, die eine eindeutige ID benötigen, wie zB. [[file:Company.org][Company]], [[file:Customer.org][Customer]] oder [[file:Employee.org][Employee]]. Diese Schnittstelle regelt, dass jede Entität eine Id besitzt, die in der Datenbank als Primärschlüssel verwendet wird. Dadurch wird sichergestellt, dass alle relevanten Objekte konsistent und leicht identifizierbar sind, sowohl in der Datenbank als auch im Code.
+
+* Diagramm
+
+[[file:class-diagram/IIdentifiable.png]]
+
+* Code
+
+#+begin_src csharp :noweb yes :tangle ../CompanyManager.Logic/Contracts/IIdentifiable.cs
+namespace CompanyManager.Logic.Contracts
+{
+    public interface IIdentifiable
+    {
+        #region Properties
+        /// <summary>
+        /// Gets the unique identifier for the entity.
+        /// </summary>
+        int Id { get; }
+        #endregion Properties
+    }
+}
+#+end_src

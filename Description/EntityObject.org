@@ -1,0 +1,49 @@
+#+title: Company Manager with SQLite - EntityObject
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Zweck der Klasse
+
+Die Klasse =EntityObject= ist eine abstrakte Basisklasse, die eine gemeinsame Grundlage für alle Entitäten im System bietet. Sie enthält die Eigenschaft =Id=, die als eindeutiger Schlüssel für jede Entität dient, sowie die Methode =CopyProperties=, um Eigenschaften von einer anderen Instanz derselben Art zu kopieren. Diese Klasse stellt sicher, dass alle abgeleiteten Entitäten einheitlich gestaltet sind.
+
+* Verwendung
+
+Die Klasse =EntityObject= wird von allen Entitäten im System geerbt, wie zB. [[file:Company.org][Company]], [[file:Customer.org][Customer]] und [[file:Employee.org][Employee]]. Sie implementiert den Contract [[file:IIdentifiable.org][IIdentifiable]], wodurch sichergestellt wird, dass jede Entität eine eindeutige Identifikation besitzt. Die Methode =CopyProperties= wird verwendet, um Eigenschaften zwischen Objekten effizient zu übertragen. Diese Basisklasse erleichtert die Wiederverwendbarkeit und Konsistenz im gesamten Datenmodell der Anwendung.
+
+* Diagramm
+
+[[file:class-diagram/EntityObject.png]]
+
+* Code
+
+#+begin_src csharp :noweb :tangle ../CompanyManager.Logic/Entities/EntityObject.cs
+using CompanyManager.Logic.Contracts;
+
+namespace CompanyManager.Logic.Entities
+{
+    /// <summary>
+    /// Represents an abstract base class for entities with an identifier.
+    /// </summary>
+    public abstract class EntityObject : IIdentifiable
+    {
+        /// <summary>
+        /// Gets or sets the identifier of the entity.
+        /// </summary>
+        [System.ComponentModel.DataAnnotations.Key]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Copies the properties from another identifiable entity.
+        /// </summary>
+        /// <param name="other">The other identifiable entity to copy properties from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when the other entity is null.</exception>
+        public virtual void CopyProperties(IIdentifiable other)
+        {
+            if (other == null) throw new ArgumentNullException(nameof(other));
+
+            Id = other.Id;
+        }
+    }
+}
+#+end_src

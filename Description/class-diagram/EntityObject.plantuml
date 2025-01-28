@@ -1,0 +1,31 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+}
+
+package CompanyManager.Logic.Entities {
+        class EntityObject {
+                +field int Id
+                --
+                +method void CopyProperties(IIdentifiable other)
+        }
+
+        class Customer {
+        }
+
+        class Company {
+        }
+
+        class Employee {
+        }
+
+        Company --> EntityObject : extends
+        EntityObject ..|> IIdentifiable
+        Customer --> EntityObject : extends
+        Employee --> EntityObject : extends
+}
+package CompanyManager.Logic.DataContext {
+}
+
+package CompanyManager.ConApp {
+}
+@enduml

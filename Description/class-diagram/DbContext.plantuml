@@ -1,0 +1,18 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+}
+
+package CompanyManager.Logic.Entities {
+}
+package CompanyManager.Logic.DataContext {
+        class DbContext
+
+        class CompanyContext {
+        }
+
+        CompanyContext --> DbContext : extends
+}
+
+package CompanyManager.ConApp {
+}
+@enduml

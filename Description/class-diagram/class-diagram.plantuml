@@ -1,0 +1,134 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+        interface IIdentifiable {
+                +field int Id
+        }
+
+        interface ICompany {
+                +field string Name
+                +field string Address
+                +field string Description
+        }
+
+        interface ICustomer {
+                +field int CompanyId
+                +field string Name
+                +field string Email
+        }
+
+        interface IEmployee {
+                +field int CompanyId
+                +field string FirstName
+                +field string LastName
+                +field string Email
+        }
+
+        interface IContext {
+                +field DbSet<Entities.Company> CompanySet
+                +field DbSet<Entities.Customer> CustomerSet
+                --
+                +method int SaveChanges()
+        }
+
+        interface IDisposable
+
+        ICompany ..|> IIdentifiable
+        ICustomer ..|> IIdentifiable
+        IEmployee ..|> IIdentifiable
+        IContext --|> IDisposable
+}
+
+package CompanyManager.Logic.Entities {
+        class EntityObject {
+                +field int Id
+                --
+                +method void CopyProperties(IIdentifiable other)
+        }
+
+        class Customer {
+                +field int CompanyId
+                +field string Name
+                +field string Email
+                --
+                +field Company? Company
+                --
+                +method void CopyProperties(ICustomer customer)
+                +method string ToString()
+        }
+
+        class Company {
+                +field string Name
+                +field string? Address
+                +field string? Description
+                +field List<Customer> Customers
+                +field List<Employee> Employees
+                --
+                +method void CopyProperties(ICompany company)
+                +method string ToString()
+        }
+
+        class Employee {
+                +field int CompanyId
+                +field string FirstName
+                +field string LastName
+                +field string Email
+                --
+                +field Company? Company
+                --
+                +method void CopyProperties(IEmployee employee)
+                +method string ToString()
+        }
+
+        Company --* Customer
+        Company --* Employee
+        Company ..|> ICompany
+        Company --> EntityObject : extends
+        EntityObject ..|> IIdentifiable
+        Customer --> EntityObject : extends
+        Customer ..|> ICustomer
+        Customer --> Company : belongs to
+        Employee --> Company : belongs to
+        Employee ..|> IEmployee
+        Employee --> EntityObject : extends
+}
+package CompanyManager.Logic.DataContext {
+        class DbContext
+
+        class CompanyContext {
+                ~field static string ConnectionString
+                +field DbSet<Entities.Company> CompanySet
+                +field DbSet<Entities.Customer> CustomerSet
+                --
+                +method void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        }
+
+        class Factory {
+                +method static IContext CreateContext()
+        }
+
+        CompanyContext --> Company : manages
+        CompanyContext --> Customer : manages
+        CompanyContext --> DbContext : extends
+        CompanyContext ..|> IContext
+
+        Factory --> IContext : creates
+        Factory --> CompanyContext : instantiates
+}
+
+package CompanyManager.ConApp {
+        class Program {
+                +method static void Main()
+                --
+                +method static void PrintCompanies(Logic.Contracts.IContext context)
+                +method static void QueryCompanies(Logic.Contracts.IContext context)
+                +method static void AddCompany(Logic.Contracts.IContext context)
+                +method static void DeleteCompany(Logic.Contracts.IContext context)
+                +method static void PrintCustomers(Logic.Contracts.IContext context)
+                +method static void QueryCustomers(Logic.Contracts.IContext context)
+                +method static void AddCustomer(Logic.Contracts.IContext context)
+                +method static void DeleteCustomer(Logic.Contracts.IContext context)
+        }
+
+        Program ..> IContext : uses
+}
+@enduml

@@ -1,0 +1,39 @@
+#+title: Company Manager with SQLite - ICompany
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Zweck des Contracts
+Der Contract =ICompany= definiert die grundlegenden Eigenschaften einer Firma im System. Er legt fest, dass jede Klasse, die diesen Contract implementiert, die Eigenschaften =Name=, =Address= und =Description= bereitstellt. Damit wird sichergestellt, dass alle Firmenentitäten einheitlich und standardisiert beschrieben werden.
+
+* Verwendung
+
+Der =ICompany= Contract wird von der Klasse [[file:Company.org][Company]] implementiert, die eine konkrete Firmenentität darstellt. Er regelt, dass jede Firma grundlegende Informationen wie ihren Namen, ihre Adresse und eine Beschreibung enthalten muss. Dieser Contract wird verwendet, um eine klare Trennung zwischen der Definition von Firmendaten und deren konkreter Implementierung zu gewährleisten. Dadurch können Firmen konsistent innerhalb der Datenbank, Geschäftslogik und Benutzeroberfläche verarbeitet und verwaltet werden.
+
+* Diagramm
+
+[[file:class-diagram/ICompany.png]]
+
+* Code
+
+#+begin_src csharp : :noweb yes :tangle ../CompanyManager.Logic/Contracts/ICompany.cs
+namespace CompanyManager.Logic.Contracts
+{
+    /// <summary>
+    /// Represents a company in the company manager.
+    /// </summary>
+    public interface ICompany : IIdentifiable
+    {
+        /// <summary>
+        /// Gets or sets the name of the company.
+        /// </summary>
+        string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the address of the company.
+        /// </summary>
+        string? Address { get; set; }
+
+        string? Description { get; set; }
+    }
+}
+#+end_src

@@ -1,0 +1,33 @@
+#+title: Company Manager with SQLite - IContext
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Zweck des Contracts
+
+Der Contract =IContext= definiert die grundlegenden Anforderungen an den Datenkontext, der für die Kommunikation mit der Datenbank verantwortlich ist. Er stellt sicher, dass alle Klassen, die diesen Contract implementieren, die notwendigen =DbSet=-Eigenschaften bereitstellen, um auf die Entitäten der Anwendung zuzugreifen, sowie die Methode =SaveChanges=, um Änderungen an der Datenbank zu persistieren.
+
+* Verwendung
+
+Der =IContext= Contract wird von der Klasse [[file:CompanyContext.org][CompanyContext]] implementiert, die für die Verbindung mit der SQLite-Datenbank zuständig ist. Er regelt, welche Entitäten ([[file:CompanyContext.org][Company]], [[file:Customer.org][Customer]], etc.) über den Datenkontext verfügbar sind und stellt eine standardisierte Schnittstelle für den Datenzugriff bereit. Dadurch wird eine klare Trennung zwischen der Geschäftslogik und der Datenzugriffsebene gewährleistet, und die Verwendung in Abhängigkeit von der Datenbankimplementierung bleibt flexibel.
+
+* Diagramm
+
+[[file:class-diagram/IContext.png]]
+
+* Code
+
+#+begin_src csharp :noweb yes :tangle ../CompanyManager.Logic/Contracts/IContext.cs
+using Microsoft.EntityFrameworkCore;
+
+namespace CompanyManager.Logic.Contracts
+{
+    public interface IContext : IDisposable
+    {
+        DbSet<Entities.Company> CompanySet { get; }
+        DbSet<Entities.Customer> CustomerSet { get; }
+
+        int SaveChanges();
+    }
+}
+#+end_src

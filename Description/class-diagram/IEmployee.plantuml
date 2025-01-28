@@ -1,0 +1,30 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+        interface IIdentifiable {
+        }
+
+        interface IEmployee {
+                +field int CompanyId
+                +field string FirstName
+                +field string LastName
+                +field string Email
+        }
+
+        IEmployee ..|> IIdentifiable
+}
+
+package CompanyManager.Logic.Entities {
+        class Employee {
+        }
+
+        Employee ..|> IEmployee
+}
+
+package CompanyManager.Logic.DataContext {
+}
+
+package CompanyManager.ConApp {
+}
+
+}
+@enduml

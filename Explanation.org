@@ -1,0 +1,51 @@
+#+title: Company Manager with SQLite - Struktur
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Namespaces
+
+Die Namespaces strukturieren den Code in unterschiedliche Verantwortungsbereiche. Jeder Namespace repräsentiert eine logische Gruppierung von Klassen, Schnittstellen und anderen Typen.
+
+** Logic
+
+Der Namespace =Logic= bildet den Kern der Geschäftslogik und enthält die Implementierung der wichtigsten Funktionen.
+
+*** Contracts
+
+Dieser Unterbereich enthält Schnittstellen, die die Verträge (Contracts) zwischen den verschiedenen Teilen der Anwendung definieren. Sie legen fest, welche Methoden und Eigenschaften von den konkreten Implementierungen erwartet werden.
+
+**** Erklärung
+- [[file:Description/IIdentifiable.org][IIdentifiable]]
+- [[file:Description/IContext.org][IContext]]
+- [[file:Description/ICustomer.org][ICustomer]]
+- [[file:Description/ICompany.org][ICompany]]
+- [[file:Description/IEmployee.org][IEmployee]]
+- [[file:Description/IDisposable.org][IDisposable]]
+
+*** Entities
+
+Hier befinden sich die Entitäten, die die zentralen Datenmodelle der Anwendung darstellen. Jede Entität repräsentiert ein Domänenobjekt, zB. =Company=, =Customer= oder =Employee=.
+
+**** Erklärung
+- [[file:Description/Customer.org][Customer]]
+- [[file:Description/Company.org][Company]]
+- [[file:Description/Employee.org][Employee]]
+- [[file:Description/EntityObject.org][EntityObject]]
+
+*** DataContext
+
+Dieser Unterbereich enthält die Implementierung des Datenkontextes, der für die Kommunikation mit der Datenbank zuständig ist. Hier werden Datenzugriff und Datenmanipulation definiert, zB. durch =CompanyContext= und zugehörige Datenbankkonfigurationen.
+
+**** Erklärung
+- [[file:Description/Factory.org][Factory]]
+- [[file:Description/CompanyContext.org][CompanyContext]]
+- [[file:Description/DbContext.org][DbContext]]
+
+** ConApp
+
+Der Namespace =ConApp= repräsentiert die Konsolenanwendung. Hier befindet sich die =Program=-Klasse, die den Einstiegspunkt der Anwendung definiert und die Hauptlogik für die Benutzerinteraktion enthält.
+
+* Diagramm
+
+[[file:Description/class-diagram/class-diagram.png]]

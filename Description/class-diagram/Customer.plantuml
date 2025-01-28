@@ -1,0 +1,40 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+             interface ICustomer {
+        }
+}
+
+package CompanyManager.Logic.Entities {
+        class EntityObject {
+        }
+
+        class Customer {
+                +field int CompanyId
+                +field string Name
+                +field string Email
+                --
+                +field Company? Company
+                --
+                +method void CopyProperties(ICustomer customer)
+                +method string ToString()
+        }
+
+        class Company {
+        }
+
+        Company --* Customer
+        Customer --> EntityObject : extends
+        Customer ..|> ICustomer
+        Customer --> Company : belongs to
+}
+package CompanyManager.Logic.DataContext {
+
+        class CompanyContext {
+        }
+
+        CompanyContext --> Customer : manages
+}
+
+package CompanyManager.ConApp {
+        }
+@enduml

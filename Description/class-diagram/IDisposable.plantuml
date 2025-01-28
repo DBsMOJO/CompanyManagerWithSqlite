@@ -1,0 +1,17 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+        interface IContext {
+        }
+
+        IContext --|> IDisposable
+}
+
+package CompanyManager.Logic.Entities {
+}
+
+package CompanyManager.Logic.DataContext {
+}
+
+package CompanyManager.ConApp {
+}
+@enduml

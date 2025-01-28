@@ -1,0 +1,42 @@
+#+title: Company Manager with SQLite - ICustomer
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Zweck des Contracts
+
+Der Contract =ICustomer= definiert die grundlegenden Eigenschaften eines Kunden im System. Er legt fest, dass jede Klasse, die diesen Contract implementiert, die Eigenschaften =CompanyId=, =Name= und =Email= bereitstellt. Dadurch wird sichergestellt, dass alle Kundenentitäten konsistent und standardisiert sind.
+
+* Verwendung
+
+Der =ICustomer= Contract wird von der Klasse [[file:Customer.org][Customer]] implementiert, die eine konkrete Kundenentität repräsentiert. Er regelt, dass ein Kunde immer einer Firma (=Company=) zugeordnet ist und über eine eindeutige Identifikation sowie grundlegende Kundeninformationen wie =Name= und =E-Mail= verfügt. Dieser Contract wird sowohl in der Datenbanklogik als auch in der Geschäftslogik verwendet, um sicherzustellen, dass alle Kundendaten einheitlich verarbeitet und verwaltet werden können.
+
+* Diagramm
+
+[[file:class-diagram/ICustomer.png]]
+
+* Code
+
+#+begin_src csharp :noweb yes :tangle ../CompanyManager.Logic/Contracts/ICustomer.cs
+namespace CompanyManager.Logic.Contracts
+{
+    /// <summary>
+    /// Represents a customer in the company manager.
+    /// </summary>
+    public interface ICustomer : IIdentifiable
+    {
+        /// <summary>
+        /// Gets or sets the reference to the company.
+        /// </summary>
+        int CompanyId { get; set; }
+        /// <summary>
+        /// Gets or sets the name of the customer.
+        /// </summary>
+        string Name { get; set; }
+        /// <summary>
+        /// Gets or sets email of the customer.
+        /// </summary>
+        string Email { get; set; }
+    }
+}
+#+end_src

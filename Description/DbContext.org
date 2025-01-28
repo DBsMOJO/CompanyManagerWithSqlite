@@ -1,0 +1,16 @@
+#+title: Company Manager with SQLite - DbContext
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Zweck der Klasse
+
+Die Klasse =DbContext= ist eine zentrale Klasse im Entity Framework Core und stellt die Grundlage für den Datenzugriff in der Anwendung dar. Sie dient als Brücke zwischen der Anwendung und der Datenbank und ermöglicht das Verwalten von Entitäten sowie das Ausführen von Abfragen und Änderungen in der Datenbank.
+
+* Verwendung
+
+Die Klasse =DbContext= wird von der spezifischen Implementierung [[file:CompanyContext.org][CompanyContext]] abgeleitet. Sie stellt grundlegende Funktionalitäten bereit, wie die Verwaltung von Entitätsobjekten, die Nachverfolgung von Änderungen und die Synchronisierung mit der Datenbank. Jede spezifische Datenbankkonfiguration oder Entitätszuordnung wird in der abgeleiteten Klasse spezifiziert. =DbContext= bildet somit das Rückgrat der Datenzugriffsebene und wird in allen Anwendungen verwendet, die Entity Framework Core nutzen.
+
+* Diagramm
+
+[[file:class-diagram/DbContext.png]]

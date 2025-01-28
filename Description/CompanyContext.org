@@ -1,0 +1,43 @@
+#+title: Company Manager with SQLite - CompanyContext
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Zweck der Klasse
+
+Die Klasse =CompanyContext= stellt den Datenkontext der Anwendung dar und verwaltet die Verbindung zur SQLite-Datenbank. Sie erbt von [[file:DbContext.org][DbContext]] und implementiert den Contract [[file:IContext.org][IContext]]. Die Klasse definiert die =DbSet=-Eigenschaften für die Entitäten [[file:Company.org][Company]] und [[file:Customer.org][Customer]] und regelt die Konfiguration der Datenbankverbindung sowie die Datenbankstruktur.
+
+* Verwendung
+
+Die Klasse =CompanyContext= wird verwendet, um den Zugriff auf die Datenbank zu ermöglichen. Sie stellt über die =DbSet=-Eigenschaften =CompanySet= und =CustomerSet= die entsprechenden Tabellen bereit und erlaubt [[file:CRUD-Operationen.org][CRUD-Operationen]] auf diesen Entitäten. Die Methode =OnConfiguring= konfiguriert die Datenbankverbindung und nutzt dabei die SQLite-Engine. Diese Klasse ist zentral für die Datenzugriffsebene der Anwendung und wird durch die [[file:Factory.org][Factory]]-Klasse instanziiert, um sicherzustellen, dass die Datenbank korrekt initialisiert wird.
+
+* Diagramm
+
+[[file:class-diagram/CompanyContext.png]]
+
+* Code
+
+#+begin_src csharp :noweb yes :tanble ../CompanyManager.Logic/DataContext/CompanyContext.cs
+using CompanyManager.Logic.Contracts;
+using Microsoft.EntityFrameworkCore;
+
+namespace CompanyManager.Logic.DataContext
+{
+    internal class CompanyContext : DbContext, IContext
+    {
+        #region fields
+        private static string ConnectionString = "data source=CompanyManager.db";
+        #endregion fields
+
+        public DbSet<Entities.Company> CompanySet { get; set; }
+        public DbSet<Entities.Customer> CustomerSet { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(ConnectionString);
+
+            base.OnConfiguring(optionsBuilder);
+        }
+    }
+}
+#+end_src

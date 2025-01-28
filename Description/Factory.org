@@ -1,0 +1,44 @@
+#+title: Company Manager with SQLite - Factory
+#+author: Daniel Binder
+#+language: de
+#+date: <2025-01-28 Tue>
+
+* Zweck der Klasse
+
+Die Klasse =Factory= ist eine statische Klasse, die als zentrale Instanz für die Erstellung von Objekten dient. Ihr Hauptzweck ist es, eine Instanz des Datenkontextes ([[file:IContext.org][IContext]]) bereitzustellen, um den Zugriff auf die Datenbank zu ermöglichen. Sie kapselt die Logik zur Initialisierung des Datenkontextes und stellt sicher, dass die Datenbank korrekt eingerichtet wird.
+
+* Verwendung
+
+Die Klasse =Factory= wird in der gesamten Anwendung verwendet, um eine Instanz von [[file:IContext.org][IContext]] zu erstellen. Die Methode =CreateContext= wird verwendet, um ein =CompanyContext=-Objekt zu instanziieren und die Datenbank über die Methode =EnsureCreated= zu initialisieren. Dadurch wird sichergestellt, dass die Datenbankstruktur beim ersten Zugriff korrekt erstellt ist. Diese Klasse erleichtert die Verwaltung der Datenzugriffsebene und stellt eine zentrale Einstiegsmöglichkeit für den Datenzugriff bereit.
+
+* Diagramm
+
+[[file:class-diagram/Factory.png]]
+
+* Code
+
+#+begin_src csharp :noweb yes :tangle ../CompanyManager.Logic/DataContext/Factory.cs
+using CompanyManager.Logic.Contracts;
+
+namespace CompanyManager.Logic.DataContext
+{
+    /// <summary>
+    /// Factory class to create instances of IMusicStoreContext.
+    /// </summary>
+    public static class Factory
+    {
+        /// <summary>
+        /// Creates an instance of IContext.
+        /// </summary>
+        /// <returns>An instance of IContext.</returns>
+        public static IContext CreateContext()
+        {
+            var result = new CompanyContext();
+
+            result.Database.EnsureCreated();
+
+            return result;
+        }
+    }
+}
+#+end_src

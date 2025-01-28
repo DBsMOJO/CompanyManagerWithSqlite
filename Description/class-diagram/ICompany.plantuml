@@ -1,0 +1,30 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+        interface IIdentifiable {
+        }
+
+        interface ICompany {
+                +field string Name
+                +field string Address
+                +field string Description
+        }
+
+        ICompany ..|> IIdentifiable
+}
+
+package CompanyManager.Logic.Entities {
+        class Company {
+        }
+
+
+        Company ..|> ICompany
+}
+
+package CompanyManager.Logic.DataContext {
+}
+
+package CompanyManager.ConApp {
+        class Program {
+        }
+}
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+              interface IContext {
+                +field DbSet<Entities.Company> CompanySet
+                +field DbSet<Entities.Customer> CustomerSet
+                --
+                +method int SaveChanges()
+        }
+
+        interface IDisposable
+
+        IContext --|> IDisposable
+}
+
+package CompanyManager.Logic.Entities {
+       }
+
+package CompanyManager.Logic.DataContext {
+        class CompanyContext {
+        }
+
+        class Factory {
+        }
+
+        CompanyContext ..|> IContext
+        Factory --> IContext : creates
+}
+
+package CompanyManager.ConApp {
+        class Program {
+         }
+
+        Program ..> IContext : uses
+}
+@enduml

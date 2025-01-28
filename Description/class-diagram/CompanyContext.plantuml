@@ -1,0 +1,38 @@
+@startuml
+package CompanyManager.Logic.Contracts {
+        interface IContext {
+        }
+}
+
+package CompanyManager.Logic.Entities {
+
+        class Customer {
+        }
+
+        class Company {
+        }
+}
+package CompanyManager.Logic.DataContext {
+        class DbContext
+
+        class CompanyContext {
+                ~field static string ConnectionString
+                +field DbSet<Entities.Company> CompanySet
+                +field DbSet<Entities.Customer> CustomerSet
+                --
+                +method void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        }
+
+        class Factory {
+        }
+
+        CompanyContext --> Company : manages
+        CompanyContext --> Customer : manages
+        CompanyContext --> DbContext : extends
+        CompanyContext ..|> IContext
+        Factory --> CompanyContext : instantiates
+}
+
+package CompanyManager.ConApp {
+}
+@enduml
